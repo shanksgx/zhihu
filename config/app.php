@@ -167,8 +167,10 @@ return [
          * Package Service Providers...
          */
 
-        //
+        // SendCloud邮件发送服务
         Naux\Mail\SendCloudServiceProvider::class,
+        // Bootstrap风格的用户提示
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...

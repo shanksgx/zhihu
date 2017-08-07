@@ -19,6 +19,8 @@ class EmailController extends Controller
         $user = User::where('confirmation_token', $token)->first();
         // 不存在则直接跳转回首页
         if (is_null($user)) {
+            // 添加友好提示
+            flash('邮箱验证失败', 'danger');
             return redirect('/');
         }
 
@@ -26,7 +28,10 @@ class EmailController extends Controller
         $user->is_active = 1;   // 邮箱已激活
         $user->confirmation_token = str_random(40); // 修改token，防止重复
         $user->save();
+
         Auth::login($user); // 模拟登录
+        flash('邮箱验证成功！', 'success');
+
         return redirect('/home');
     }
 }

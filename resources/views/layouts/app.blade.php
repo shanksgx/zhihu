@@ -78,10 +78,14 @@
             </div>
         </nav>
 
+        @include('flash::message')
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 </html>
