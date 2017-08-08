@@ -101,6 +101,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        // 自定义验证规则和提示
+        'email' => [
+            'unique' => '邮箱已被占用！',
+        ],
+        'password' => [
+            'confirmed' => '两次密码输入不一致！',
+        ],
     ],
 
     /*

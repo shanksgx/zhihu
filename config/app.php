@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'zhihu',
+    'name' => 'Zhihu',
 
     /*
     |--------------------------------------------------------------------------
@@ -171,6 +171,8 @@ return [
         Naux\Mail\SendCloudServiceProvider::class,
         // Bootstrap风格的用户提示
         Laracasts\Flash\FlashServiceProvider::class,
+        // Laravel中的UEditor插件
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
 
         /*
          * Application Service Providers...
