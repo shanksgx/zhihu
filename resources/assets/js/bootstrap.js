@@ -9,6 +9,8 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
+// 引用select2.min.js
+require('./select2.min');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

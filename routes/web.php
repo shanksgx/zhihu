@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index');
 // 邮箱验证
 Route::get('email/verify/{token}', ['as' => 'email.verify', 'uses' => 'EmailController@verify']);
 
+// Questions资源路由
 Route::resource('questions', 'QuestionsController', ['names' => [
     'create' => 'question.create',
     'show' => 'question.show'

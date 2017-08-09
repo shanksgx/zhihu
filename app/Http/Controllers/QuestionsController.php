@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
 use App\Question;
 use Auth;
 use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        // 验证是否登录，except中的方法不受影响
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +40,10 @@ class QuestionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param StoreQuestionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
         // post发布问题
         // 图片上传问题暂未搞定
@@ -46,6 +53,7 @@ class QuestionsController extends Controller
             'user_id' => Auth::id()
         ];
         $question = Question::create($data);
+        // 使用路由中配置的别名进行跳转
         return redirect()->route('question.show', [$question->id]);
     }
 
