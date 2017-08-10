@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Naux\Mail\SendCloudTemplate;
@@ -28,6 +29,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 判断身份是否是当前登录id
+     *
+     * @param Model $model
+     * @return bool
+     */
+    public function owns(Model $model)
+    {
+        return $this->id == $model->user_id;
+    }
 
     /**
      * 重写发送密码重置邮件的提醒方法

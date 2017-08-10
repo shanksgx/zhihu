@@ -6,14 +6,15 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">发布问题</div>
+                    <div class="panel-heading">编辑问题</div>
 
                     <div class="panel-body">
-                        <form action="/questions" method="post">
+                        <form action="/questions/{{ $question->id }}" method="post">
+                            {{ method_field('PATCH') }}
                             {!! csrf_field() !!}
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                 <label for="title">标题</label>
-                                <input type="text" value="{{ old('title') }}" class="form-control" name="title"
+                                <input type="text" value="{{ $question->title }}" class="form-control" name="title"
                                        placeholder="标题" id="title">
                                 @if ($errors->has('title'))
                                     <span class="help-block">
@@ -24,13 +25,16 @@
                             <div class="form-group">
                                 <select class="js-example-placeholder-multiple js-data-example-ajax form-control"
                                         multiple="multiple" name="topics[]">
+                                    @foreach($question->topics as $topic)
+                                        <option value="{{ $topic->id }}" selected>{{ $topic->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                                 <label for="body">描述</label>
                                 <!-- 编辑器容器 -->
                                 <script id="container" name="body" type="text/plain" style="height:200px">
-                                    {!! old('body') !!}
+                                    {!! $question->body !!}
                                 </script>
                                 @if ($errors->has('body'))
                                     <span class="help-block">
