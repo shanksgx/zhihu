@@ -20,6 +20,12 @@ use App\Topic;
  */
 class QuestionRepository
 {
+    public function getQuestionsFeed()
+    {
+        // 调用scopePublished
+        return Question::published()->latest('updated_at')->with('user')->get();
+    }
+
     /**
      * 根据id获取Question数据并关联获取Topic数据
      *

@@ -25,8 +25,9 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        //
-        return 'index';
+        // 首页-问题列表页面
+        $questions = $this->questionRepository->getQuestionsFeed();
+        return view('questions.index', compact('questions'));
     }
 
     /**
@@ -138,6 +139,14 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 删除问题
+        $question = $this->questionRepository->byId($id);
+        if (Auth::User()->owns($question)) {
+            $question->delete();
+
+            return redirect('/');
+        }
+
+        abort(403, 'Forbidden');
     }
 }
