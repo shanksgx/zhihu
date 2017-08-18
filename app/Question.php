@@ -26,6 +26,14 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * 一对多关联Answer
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
 
     /**
      * 使用queryScope提取查询条件

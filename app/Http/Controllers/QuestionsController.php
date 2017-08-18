@@ -50,7 +50,6 @@ class QuestionsController extends Controller
     public function store(StoreQuestionRequest $request)
     {
         // post发布问题
-        // 图片上传问题暂未搞定
 
         // 获取topics，并将之全部转换为topic_id数组
         $topics = $this->questionRepository->normalizeTopic($request->get('topics'));
@@ -84,7 +83,7 @@ class QuestionsController extends Controller
         // 使用topics方法关联获取Topic信息
 //        $question = Question::where('id', $id)->with('topics')->first();
         // 将模型的操作进行封装
-        $question = $this->questionRepository->byIdWithTopics($id);
+        $question = $this->questionRepository->byIdWithTopicsAndAnswers($id);
         return view('questions.show', compact('question'));
     }
 

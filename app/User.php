@@ -31,6 +31,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * 一对多关联Answer
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    /**
      * 判断身份是否是当前登录id
      *
      * @param Model $model
@@ -39,6 +47,20 @@ class User extends Authenticatable
     public function owns(Model $model)
     {
         return $this->id == $model->user_id;
+    }
+
+    /**
+     * 用户关注问题
+     *
+     * @param integer $question question_id
+     * @return static
+     */
+    public function follows($question)
+    {
+        return Follow::create([
+            'question_id' => $question,
+            'user_id' => $this->id
+        ]);
     }
 
     /**

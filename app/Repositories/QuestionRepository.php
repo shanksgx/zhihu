@@ -1,6 +1,6 @@
 <?php
 /**
- * 文档注释
+ * QuestionRepository
  *
  * @author xiaomo<xiaomo@etlinker.com>
  * @copyright Copyright(C)2016 Wuhu Yichuan Network Technology Corporation Ltd. All rights reserved.
@@ -32,10 +32,10 @@ class QuestionRepository
      * @param $id
      * @return mixed
      */
-    public function byIdWithTopics($id)
+    public function byIdWithTopicsAndAnswers($id)
     {
         // 将模型的curd操作提取到Repository
-        return Question::where('id', $id)->with('topics')->first();
+        return Question::where('id', $id)->with(['topics', 'answers'])->first();
     }
 
     /**
