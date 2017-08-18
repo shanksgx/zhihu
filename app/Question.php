@@ -34,6 +34,14 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    /**
+     * 用户关注问题-多对多关联User
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_question')->withTimestamps();
+    }
+
 
     /**
      * 使用queryScope提取查询条件

@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 class QuestionFollowController extends Controller
 {
     /**
+     * QuestionFollowController constructor.
+     */
+    public function __construct()
+    {
+        // 登录后才可以访问
+        $this->middleware('auth');
+    }
+
+    /**
      * 用户关注问题
      *
      * @param integer $question question_id
@@ -15,7 +24,7 @@ class QuestionFollowController extends Controller
      */
     public function follow($question)
     {
-        Auth::user()->follows($question);
+        Auth::user()->followThis($question);
         return back();
     }
 }

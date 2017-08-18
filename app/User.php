@@ -39,6 +39,38 @@ class User extends Authenticatable
     }
 
     /**
+     * 用户关注问题-多对多关联Question
+     */
+    public function follows()
+    {
+        return $this->belongsToMany(Question::class, 'user_question')->withTimestamps();
+    }
+
+    /**
+     * 用户关注问题
+     *
+     * @param integer $question question_id
+     * @return array
+     */
+    public function followThis($question)
+    {
+        // toggle=切换
+        return $this->follows()->toggle($question);
+    }
+
+    /**
+     * 获取关注状态
+     *
+     * @param integer $question question_id
+     * @return bool
+     */
+    public function followed($question)
+    {
+        // !!强制转换为bool类型
+        return !!$this->follows()->where('question_id', $question)->count();
+    }
+
+    /**
      * 判断身份是否是当前登录id
      *
      * @param Model $model
@@ -47,20 +79,6 @@ class User extends Authenticatable
     public function owns(Model $model)
     {
         return $this->id == $model->user_id;
-    }
-
-    /**
-     * 用户关注问题
-     *
-     * @param integer $question question_id
-     * @return static
-     */
-    public function follows($question)
-    {
-        return Follow::create([
-            'question_id' => $question,
-            'user_id' => $this->id
-        ]);
     }
 
     /**
