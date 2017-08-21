@@ -29,30 +29,27 @@ Route::get('/topics', function (Request $request) {
 
 // 配合vue-resource实现ajax获取用户关注问题的状态
 Route::post('/question/follower', function (Request $request) {
-    $followed = \App\Follow::where('question_id', $request->get('question'))
-        ->where('user_id', $request->get('user'))
-        ->count();
-    if ($followed) {
+    // 获取请求当前api的用户数据
+    $user = Auth::guard('api')->user();
+    if ($user->followed($request->get('question'))) {
         return response()->json(['followed' => true]);
     }
     return response()->json(['followed' => false]);
-})->middleware('api');
+})->middleware('auth:api');
 
 // 修改用户关注问题的状态
 Route::post('/question/follow', function (Request $request) {
-    $followed = \App\Follow::where('question_id', $request->get('question'))
-        ->where('user_id', $request->get('user'))
-        ->first();
-    // 存在则删除记录
-    if ($followed !== null) {
-        $followed->delete();
+    $user = Auth::guard('api')->user();
+    $question = \App\Question::find($request->get('question'));
+    // 修改状态
+    $followed = $user->followThis($question->id);
+    if (count($followed['detached']) > 0) {
+        // 问题关注数-1
+        $question->decrement('followers_count');
         return response()->json(['followed' => false]);
     }
 
-    // 插入一条新纪录
-    \App\Follow::create([
-        'question_id' => $request->get('question'),
-        'user_id' => $request->get('user')
-    ]);
+    // 问题关注数+1
+    $question->increment('followers_count');
     return response()->json(['followed' => true]);
-})->middleware('api');
+})->middleware('auth:api');

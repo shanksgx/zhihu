@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'avatar' => '/images/avatars/default.png',  // 默认头像
             'confirmation_token' => str_random(40), // 邮箱验证token
             'password' => bcrypt($data['password']),
+            'api_token' => str_random(60),
         ]);
 
         // 发送验证邮件
