@@ -14,6 +14,8 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+// 注册QuestionFollowButton.vue
+Vue.component('question-follow-button', require('./components/QuestionFollowButton.vue'));
 
 const app = new Vue({
     el: '#app'
