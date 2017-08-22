@@ -71,6 +71,14 @@ class User extends Authenticatable
     }
 
     /**
+     * 用户关注用户-多对多关联User
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(self::class, 'followers', 'follower_id', 'followed_id')->withTimestamps();
+    }
+
+    /**
      * 判断身份是否是当前登录id
      *
      * @param Model $model
