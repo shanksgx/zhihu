@@ -53,3 +53,10 @@ Route::post('/question/follow', function (Request $request) {
     $question->increment('followers_count');
     return response()->json(['followed' => true]);
 })->middleware('auth:api');
+
+
+// 获取用户关注作者状态
+Route::get('/user/followers/{id}', 'FollowersController@index');
+
+// 修改用户关注作者的状态
+Route::post('/user/follow', 'FollowersController@follow');

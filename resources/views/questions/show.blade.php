@@ -100,7 +100,8 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img width="36" src="{{ $question->user->avatar }}" alt="{{ $question->user->name }}">
+                                    <img width="36" src="{{ $question->user->avatar }}"
+                                         alt="{{ $question->user->name }}">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -123,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <question-follow-button question="{{ $question->id }}"></question-follow-button>
+                        <user-follow-button user="{{ $question->user_id }}"></user-follow-button>
                         <a href="#editor" class="btn btn-default" style="float: right">发送私信</a>
                     </div>
                 </div>

@@ -79,6 +79,17 @@ class User extends Authenticatable
     }
 
     /**
+     * 用户关注用户
+     *
+     * @param $user
+     * @return array
+     */
+    public function followThisUser($user)
+    {
+        return $this->followers()->toggle($user);
+    }
+
+    /**
      * 判断身份是否是当前登录id
      *
      * @param Model $model

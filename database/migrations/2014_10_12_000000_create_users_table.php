@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->integer('comments_count')->default(0);  // 评论数
             $table->integer('favorites_count')->default(0); // 收藏数
             $table->integer('likes_count')->default(0); // 点赞数
-            $table->integer('followers_count')->default(0); // 关注数
-            $table->integer('followings_count')->default(0);    // 被关注数
+            $table->integer('followers_count')->default(0); // 被关注数
+            $table->integer('followings_count')->default(0);    // 关注数
 //            $table->json('settings')->nullable();   // 个人资料，MySQL>=5.7才支持json格式
             $table->rememberToken();
             $table->timestamps();
