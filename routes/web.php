@@ -34,3 +34,6 @@ Route::post('questions/{question}/answer', 'AnswersController@store');
 
 // 用户关注问题
 Route::get('questions/{question}/follow', 'QuestionFollowController@follow');
+
+// 通知消息列表
+Route::get('notifications', 'NotificationsController@index');

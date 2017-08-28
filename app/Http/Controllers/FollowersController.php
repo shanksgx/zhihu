@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewUserFollowNotification;
 use Auth;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -53,8 +54,9 @@ class FollowersController extends Controller
         $followed = $user->followThisUser($userToFollow->id);
         // 关注则用户的关注数+1且作者的被关注数+1
         if (count($followed['attached']) > 0) {
-            $user->increment('followings_count');   // 关注数+
+            $user->increment('followings_count');   // 关注数+1
             $userToFollow->increment('followers_count');    // 被关注数+1
+            $userToFollow->notify(new NewUserFollowNotification()); // 给作者发送一个通知
 
             return response()->json(['followed' => true]);
         }
